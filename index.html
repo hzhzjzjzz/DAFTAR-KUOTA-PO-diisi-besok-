@@ -50,7 +50,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
-            flex-wrap: wrap; /* Agar rapi jika ada 4 item */
+            flex-wrap: wrap;
         }
 
         .product-name {
@@ -68,7 +68,7 @@
         .product-details {
             list-style-type: none;
             padding: 0;
-            margin: 0;
+            margin: 0 0 10px 0;
             font-size: 14px;
             color: #555;
             background-color: #f9f9f9;
@@ -82,24 +82,54 @@
             justify-content: space-between;
         }
 
+        /* CSS untuk Informasi Pembayaran dan Catatan */
+        .product-info {
+            background-color: #f0f8ff;
+            border-left: 4px solid #3498db;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .product-info strong {
+            color: #2c3e50;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .product-info strong:first-child {
+            margin-top: 0;
+        }
+
+        .info-payment {
+            color: #27ae60;
+        }
+
+        .info-note {
+            color: #c0392b;
+            font-style: italic;
+        }
+
         /* --- CSS TOMBOL WA BARU --- */
         .btn-wa {
             display: block;
             width: 100%;
             text-align: center;
-            background-color: #25d366; /* Warna Hijau WA */
+            background-color: #25d366;
             color: white;
             padding: 12px;
-            margin-top: 15px;
+            margin-top: 10px;
             text-decoration: none;
             border-radius: 6px;
             font-weight: bold;
             font-size: 14px;
-            box-sizing: border-box; /* Agar padding tidak merusak lebar */
+            box-sizing: border-box;
         }
 
         .btn-wa:hover {
-            background-color: #128c7e; /* Warna saat disentuh jadi agak gelap */
+            background-color: #128c7e;
         }
 
         /* Bagian Catatan Penting */
@@ -164,6 +194,11 @@
                 <li><span>Area 3</span> <span>20 GB</span></li>
                 <li><span>Area 4</span> <span>30 GB±</span></li>
             </ul>
+            <div class="product-info">
+                <strong class="info-payment">💳 Pembayaran: DANA, GOPAY 089667881288</strong>
+                <strong>📞 Nomor Tujuan: 0831**</strong>
+                <strong class="info-note">⚠️ Catatan: Pastikan bersih dari paket akrab</strong>
+            </div>
             <a href="https://wa.me/6289667881288?text=XDA13%20/%20SUPERMINI%20Rp45-46k%20Payment%20kemana%20ini%20nomor%20yg%20mau%20diisi%200831..." class="btn-wa" target="_blank">
                 Beli/pesan via WhatsApp
             </a>
@@ -180,6 +215,11 @@
                 <li><span>Area 3</span> <span>26 GB</span></li>
                 <li><span>Area 4</span> <span>36 GB±</span></li>
             </ul>
+            <div class="product-info">
+                <strong class="info-payment">💳 Pembayaran: DANA, GOPAY 089667881288</strong>
+                <strong>📞 Nomor Tujuan: 0831**</strong>
+                <strong class="info-note">⚠️ Catatan: Pastikan bersih dari paket akrab</strong>
+            </div>
             <a href="https://wa.me/6289667881288?text=XDA19%20Rp50k%20Payment%20kemana%20ini%20nomor%20yg%20mau%20diisi%200831..." class="btn-wa" target="_blank">
                 Beli via WhatsApp
             </a>
@@ -196,6 +236,11 @@
                 <li><span>Area 3</span> <span>32 GB</span></li>
                 <li><span>Area 4</span> <span>42 GB±</span></li>
             </ul>
+            <div class="product-info">
+                <strong class="info-payment">💳 Pembayaran: DANA, GOPAY 089667881288</strong>
+                <strong>📞 Nomor Tujuan: 0831**</strong>
+                <strong class="info-note">⚠️ Catatan: Pastikan bersih dari paket akrab</strong>
+            </div>
             <a href="https://wa.me/6289667881288?text=XDA25%20Rp55k%20Payment%20kemana%20ini%20nomor%20yg%20mau%20diisi%200831..." class="btn-wa" target="_blank">
                 Beli via WhatsApp
             </a>
@@ -214,6 +259,11 @@
                 <li><span>Area 3</span> <span>38 GB</span></li>
                 <li><span>Area 4</span> <span>48 GB±</span></li>
             </ul>
+            <div class="product-info">
+                <strong class="info-payment">💳 Pembayaran: DANA, GOPAY 089667881288</strong>
+                <strong>📞 Nomor Tujuan: 0831**</strong>
+                <strong class="info-note">⚠️ Catatan: Pastikan bersih dari paket akrab</strong>
+            </div>
             <a href="https://wa.me/6289667881288?text=XDA31%20Rp58-60k%20/%20MINI%20Payment%20kemana%20ini%20nomor%20yg%20mau%20diisi%200831..." class="btn-wa" target="_blank">
                 Beli via WhatsApp
             </a>
@@ -232,6 +282,11 @@
                 <li><span>Area 3</span> <span>45 GB</span></li>
                 <li><span>Area 4</span> <span>55 GB±</span></li>
             </ul>
+            <div class="product-info">
+                <strong class="info-payment">💳 Pembayaran: DANA, GOPAY 089667881288</strong>
+                <strong>📞 Nomor Tujuan: 0831**</strong>
+                <strong class="info-note">⚠️ Catatan: Pastikan bersih dari paket akrab</strong>
+            </div>
             <a href="https://wa.me/6289667881288?text=XDA38%20Rp63-64k%20/%20BIG%20Payment%20kemana%20ini%20nomor%20yg%20mau%20diisi%200831..." class="btn-wa" target="_blank">
                 Beli via WhatsApp
             </a>
@@ -250,6 +305,11 @@
                 <li><span>Area 3</span> <span>57 GB</span></li>
                 <li><span>Area 4</span> <span>67 GB±</span></li>
             </ul>
+            <div class="product-info">
+                <strong class="info-payment">💳 Pembayaran: DANA, GOPAY 089667881288</strong>
+                <strong>📞 Nomor Tujuan: 0831**</strong>
+                <strong class="info-note">⚠️ Catatan: Pastikan bersih dari paket akrab</strong>
+            </div>
             <a href="https://wa.me/6289667881288?text=XDA50%20Rp72-74k%20/%20JUMBO'V2%20Payment%20kemana%20ini%20nomor%20yg%20mau%20diisi%200831..." class="btn-wa" target="_blank">
                 Beli via WhatsApp
             </a>
@@ -266,6 +326,11 @@
                 <li><span>Area 3</span> <span>70 GB</span></li>
                 <li><span>Area 4</span> <span>80 GB±</span></li>
             </ul>
+            <div class="product-info">
+                <strong class="info-payment">💳 Pembayaran: DANA, GOPAY 089667881288</strong>
+                <strong>📞 Nomor Tujuan: 0831**</strong>
+                <strong class="info-note">⚠️ Catatan: Pastikan bersih dari paket akrab</strong>
+            </div>
             <a href="https://wa.me/6289667881288?text=XDA63%20Rp85k%20Payment%20kemana%20ini%20nomor%20yg%20mau%20diisi%200831..." class="btn-wa" target="_blank">
                 Beli via WhatsApp
             </a>
@@ -282,6 +347,11 @@
                 <li><span>Area 3</span> <span>83 GB</span></li>
                 <li><span>Area 4</span> <span>93 GB±</span></li>
             </ul>
+            <div class="product-info">
+                <strong class="info-payment">💳 Pembayaran: DANA, GOPAY 089667881288</strong>
+                <strong>📞 Nomor Tujuan: 0831**</strong>
+                <strong class="info-note">⚠️ Catatan: Pastikan bersih dari paket akrab</strong>
+            </div>
             <a href="https://wa.me/6289667881288?text=XDA76%20Rp92k%20Payment%20kemana%20ini%20nomor%20yg%20mau%20diisi%200831..." class="btn-wa" target="_blank">
                 Beli via WhatsApp
             </a>
@@ -300,6 +370,11 @@
                 <li><span>Area 3</span> <span>95 GB</span></li>
                 <li><span>Area 4</span> <span>105 GB±</span></li>
             </ul>
+            <div class="product-info">
+                <strong class="info-payment">💳 Pembayaran: DANA, GOPAY 089667881288</strong>
+                <strong>📞 Nomor Tujuan: 0831**</strong>
+                <strong class="info-note">⚠️ Catatan: Pastikan bersih dari paket akrab</strong>
+            </div>
             <a href="https://wa.me/6289667881288?text=XDA88%20Rp97-102k%20/%20MEGABIG%20Payment%20kemana%20ini%20nomor%20yg%20mau%20diisi%200831..." class="btn-wa" target="_blank">
                 Beli via WhatsApp
             </a>
@@ -318,9 +393,9 @@
         </div>
 
         <div class="footer">
-            &copy; 2006 Toko Paket Data
+            &copy; 999+ ©gfrstore
         </div>
     </div>
 
 </body>
-  </html>
+            </html>
