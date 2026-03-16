@@ -5,183 +5,274 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Harga Paket Data AKRAB</title>
     <style>
-        /* CSS Tampilan Bersih */
+        /* CSS Tampilan Modern & Bersih */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
         body {
-            font-family: sans-serif;
-            background-color: #f4f6f8;
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
             margin: 0;
             padding: 20px;
-            color: #333;
+            color: #334155;
+            padding-bottom: 80px; /* Jarak untuk tombol melayang */
         }
 
         .container {
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
             background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 30px 20px;
         }
 
-        h1 {
+        /* Notifikasi */
+        .alert-box {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            color: #b45309;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .alert-danger {
+            background-color: #fef2f2;
+            border-left: 4px solid #ef4444;
+            color: #b91c1c;
+        }
+
+        .header-title {
             text-align: center;
-            color: #2c3e50;
-            font-size: 24px;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
+            color: #1e293b;
+            font-size: 26px;
+            font-weight: 700;
+            margin: 25px 0 30px 0;
+            position: relative;
+        }
+
+        .header-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: #3b82f6;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Kartu Produk dengan Animasi */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .product-card {
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
+            position: relative; /* Penting untuk posisi Label/Badge */
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
             background-color: #fff;
-            transition: transform 0.1s;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            animation: fadeInUp 0.6s ease-out backwards;
         }
 
+        /* Delay Animasi untuk tiap kartu */
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.2s; }
+        .product-card:nth-child(3) { animation-delay: 0.3s; }
+        .product-card:nth-child(4) { animation-delay: 0.4s; }
+        .product-card:nth-child(5) { animation-delay: 0.5s; }
+
         .product-card:hover {
-            border-color: #3498db;
+            border-color: #3b82f6;
+            box-shadow: 0 8px 15px rgba(59, 130, 246, 0.15);
+            transform: translateY(-4px);
+        }
+
+        /* 🌟 CSS Label Badge (Best Seller / Promo) */
+        .badge {
+            position: absolute;
+            top: -12px;
+            right: -10px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+        .badge.bestseller {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+        .badge.promo {
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
         }
 
         .product-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             flex-wrap: wrap;
         }
 
         .product-name {
-            font-weight: bold;
-            font-size: 16px;
-            color: #2c3e50;
+            font-weight: 700;
+            font-size: 17px;
+            color: #0f172a;
+            background-color: #f1f5f9;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-bottom: 5px;
         }
 
         .product-price {
-            font-weight: bold;
-            color: #27ae60;
-            font-size: 18px;
+            font-weight: 700;
+            color: #10b981;
+            font-size: 19px;
+            margin-bottom: 5px;
         }
 
         .product-details {
             list-style-type: none;
             padding: 0;
-            margin: 0 0 10px 0;
+            margin: 0 0 15px 0;
             font-size: 14px;
-            color: #555;
-            background-color: #f9f9f9;
-            padding: 10px;
-            border-radius: 5px;
+            color: #475569;
         }
 
         .product-details li {
-            margin-bottom: 4px;
+            margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
+            border-bottom: 1px dashed #e2e8f0;
+            padding-bottom: 4px;
         }
 
-        /* CSS untuk Informasi Pembayaran dan Catatan */
-        .product-info {
-            background-color: #f0f8ff;
-            border-left: 4px solid #3498db;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            font-size: 13px;
-            color: #333;
+        .product-details li:last-child {
+            border-bottom: none;
         }
 
-        .product-info strong {
-            color: #2c3e50;
-            display: block;
-            margin-top: 5px;
-        }
-
-        .product-info strong:first-child {
-            margin-top: 0;
-        }
-
-        .info-payment {
-            color: #27ae60;
-        }
-
-        .info-note {
-            color: #c0392b;
-            font-style: italic;
-        }
-
-        /* --- CSS TOMBOL WA BARU --- */
+        /* Tombol WA di Kartu */
         .btn-wa {
-            display: block;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 100%;
-            text-align: center;
             background-color: #25d366;
             color: white;
             padding: 12px;
-            margin-top: 10px;
             text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-
-        .btn-wa:hover {
-            background-color: #128c7e;
-        }
-
-        /* Bagian Catatan Penting */
-        .info-box {
-            background-color: #fff3cd;
-            border: 1px solid #ffeeba;
-            color: #856404;
-            padding: 15px;
             border-radius: 8px;
-            margin-top: 30px;
+            font-weight: 700;
+            font-size: 15px;
+            box-sizing: border-box;
+            transition: background-color 0.2s;
+        }
+
+        .btn-wa:hover { background-color: #16a34a; }
+
+        .btn-wa svg {
+            margin-right: 8px;
+            fill: currentColor;
+            width: 20px;
+            height: 20px;
+        }
+
+        /* 💬 CSS Tombol WA Melayang */
+        .floating-wa {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .floating-wa:hover {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .floating-wa svg {
+            width: 35px;
+            height: 35px;
+            fill: currentColor;
+        }
+
+        /* Info Box Bawah */
+        .info-box {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 35px;
             font-size: 14px;
         }
 
         .info-box h3 {
             margin-top: 0;
-            font-size: 16px;
-            border-bottom: 1px solid #ffeeba;
-            padding-bottom: 5px;
-            margin-bottom: 10px;
+            font-size: 17px;
+            color: #1e293b;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
         }
 
-        .info-box ul {
-            padding-left: 20px;
-        }
-
-        .info-box li {
-            margin-bottom: 5px;
-        }
+        .info-box ul { padding-left: 20px; }
+        .info-box li { margin-bottom: 8px; }
 
         a.link-area {
-            color: #0056b3;
-            text-decoration: underline;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
         }
+        
+        a.link-area:hover { text-decoration: underline; }
 
         .footer {
             text-align: center;
-            font-size: 12px;
-            color: #aaa;
-            margin-top: 20px;
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 30px;
+            line-height: 1.6;
         }
+        
+        .footer span { font-weight: 700; color: #0f172a; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>PERUBAHAN JAM RESTOK SELAMA BULAN SUCI RAMADHAN SEBAGIAN DIISI JAM 8-9 WIB PAGI</h1>
         
-        <h1>Sedikit Perubahan Harga Pada Sebagian Produk Harap Diperhatikan</h1>
+        <div class="alert-box">
+            📢 PERUBAHAN JAM RESTOK SELAMA BULAN SUCI RAMADHAN SEBAGIAN DIISI JAM 8-9 WIB PAGI
+        </div>
+        <div class="alert-box">
+            ⚠️ Sedikit Perubahan Harga Pada Sebagian Produk Harap Diperhatikan
+        </div>
+        <div class="alert-box alert-danger">
+            📝 Note: PO tidak jamin 100% dapat, kemungkinan eror nomor/slot & rebutan stok murah yg ada 2 harga bisa pilih yg murah. Stok yg murah cepat habis.
+        </div>
 
-        <h1>Note: PO tidak jamin 100% dapat kemungkinan eror nomor/slot & rebutan stok murah yg ada 2 harga bisa pilih yg murah stok sama yg murah cepat habis aja</h1>
+        <h1 class="header-title">Daftar Harga Paket AKRAB</h1>
 
         <div class="product-card">
+            <div class="badge promo">🔥 Hot Promo</div>
             <div class="product-header">
                 <span class="product-name">SUPERMINI jam 8±</span>
                 <span class="product-price">Rp45.000</span>
@@ -192,61 +283,50 @@
                 <li><span>Area 1</span> <span>13 GB</span></li>
                 <li><span>Area 2</span> <span>15 GB</span></li>
                 <li><span>Area 3</span> <span>20 GB</span></li>
-                <li><span>Area 4</span> <span>30 GB±</span></li>
+                <li><span>Area 4</span> <span>30 GB+</span></li>
             </ul>
-            <div class="product-info">
-                <strong class="info-payment">💳 Pembayaran: DANA, GOPAY 089667881288</strong>
-                <strong>📞 Nomor Tujuan: 0831**</strong>
-                <strong class="info-note">⚠️ Catatan: Pastikan bersih dari paket akrab</strong>
-            </div>
-            <a href="https://wa.me/6289667881288?text=XDA13%20/%20SUPERMINI%20Rp45-46k%20Payment%20kemana%20ini%20nomor%20yg%20mau%20diisi%200831..." class="btn-wa" target="_blank">
-                Beli/pesan via WhatsApp
+            <a href="https://wa.me/6289667881288?text=produk%20%3A%0AXDA13%20Rp45-46k%20%2F%20SUPERMINI%0AArea%201%3A%2013GB%0AArea%202%3A%2015GB%0AArea%203%3A%2020GB%0AArea%204%3A%2030GB%2B%0A%0APembayaran%20%3A%20dana%2Cgopay%20089667881288%0A%0Acatatan%20%3A%20pastikan%20bersih%20dari%20paket%20akrab%0Acekkuota%3A%20https%3A%2F%2Fbendith.my.id%2F%0Anomor%20tujuan%20%3A%200831**" class="btn-wa" target="_blank">
+                <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.423-.101.827z"></path></svg>
+                Pesan via WhatsApp
             </a>
         </div>
 
         <div class="product-card">
             <div class="product-header">
-                <span class="product-name">XDA19    (jam 9)</span>
+                <span class="product-name">XDA19 (jam 9)</span>
                 <span class="product-price">Rp50.000</span>
             </div>
             <ul class="product-details">
                 <li><span>Area 1</span> <span>19 GB</span></li>
                 <li><span>Area 2</span> <span>21 GB</span></li>
                 <li><span>Area 3</span> <span>26 GB</span></li>
-                <li><span>Area 4</span> <span>36 GB±</span></li>
+                <li><span>Area 4</span> <span>36 GB+</span></li>
             </ul>
-            <div class="product-info">
-                <strong class="info-payment">💳 Pembayaran: DANA, GOPAY 089667881288</strong>
-                <strong>📞 Nomor Tujuan: 0831**</strong>
-                <strong class="info-note">⚠️ Catatan: Pastikan bersih dari paket akrab</strong>
-            </div>
-            <a href="https://wa.me/6289667881288?text=XDA19%20Rp50k%20Payment%20kemana%20ini%20nomor%20yg%20mau%20diisi%200831..." class="btn-wa" target="_blank">
-                Beli via WhatsApp
+            <a href="https://wa.me/6289667881288?text=produk%20%3A%0AXDA19%20Rp50k%0AArea%201%3A%2019GB%0AArea%202%3A%2021GB%0AArea%203%3A%2026GB%0AArea%204%3A%2036GB%2B%0A%0APembayaran%20%3A%20dana%2Cgopay%20089667881288%0A%0Acatatan%20%3A%20pastikan%20bersih%20dari%20paket%20akrab%0Acekkuota%3A%20https%3A%2F%2Fbendith.my.id%2F%0Anomor%20tujuan%20%3A%200831**" class="btn-wa" target="_blank">
+                <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.423-.101.827z"></path></svg>
+                Pesan via WhatsApp
             </a>
         </div>
 
         <div class="product-card">
             <div class="product-header">
-                <span class="product-name">XDA25     (jam 9)</span>
+                <span class="product-name">XDA25 (jam 9)</span>
                 <span class="product-price">Rp55.000</span>
             </div>
             <ul class="product-details">
                 <li><span>Area 1</span> <span>25 GB</span></li>
                 <li><span>Area 2</span> <span>27 GB</span></li>
                 <li><span>Area 3</span> <span>32 GB</span></li>
-                <li><span>Area 4</span> <span>42 GB±</span></li>
+                <li><span>Area 4</span> <span>42 GB+</span></li>
             </ul>
-            <div class="product-info">
-                <strong class="info-payment">💳 Pembayaran: DANA, GOPAY 089667881288</strong>
-                <strong>📞 Nomor Tujuan: 0831**</strong>
-                <strong class="info-note">⚠️ Catatan: Pastikan bersih dari paket akrab</strong>
-            </div>
-            <a href="https://wa.me/6289667881288?text=XDA25%20Rp55k%20Payment%20kemana%20ini%20nomor%20yg%20mau%20diisi%200831..." class="btn-wa" target="_blank">
-                Beli via WhatsApp
+            <a href="https://wa.me/6289667881288?text=produk%20%3A%0AXDA25%20Rp55k%0AArea%201%3A%2025GB%0AArea%202%3A%2027GB%0AArea%203%3A%2032GB%0AArea%204%3A%2042GB%2B%0A%0APembayaran%20%3A%20dana%2Cgopay%20089667881288%0A%0Acatatan%20%3A%20pastikan%20bersih%20dari%20paket%20akrab%0Acekkuota%3A%20https%3A%2F%2Fbendith.my.id%2F%0Anomor%20tujuan%20%3A%200831**" class="btn-wa" target="_blank">
+                <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.423-.101.827z"></path></svg>
+                Pesan via WhatsApp
             </a>
         </div>
 
         <div class="product-card">
+            <div class="badge bestseller">⭐ Best Seller</div>
             <div class="product-header">
                 <span class="product-name">MINI Jam 8±</span>
                 <span class="product-price">Rp58.000</span>
@@ -257,38 +337,30 @@
                 <li><span>Area 1</span> <span>31 GB</span></li>
                 <li><span>Area 2</span> <span>33 GB</span></li>
                 <li><span>Area 3</span> <span>38 GB</span></li>
-                <li><span>Area 4</span> <span>48 GB±</span></li>
+                <li><span>Area 4</span> <span>48 GB+</span></li>
             </ul>
-            <div class="product-info">
-                <strong class="info-payment">💳 Pembayaran: DANA, GOPAY 089667881288</strong>
-                <strong>📞 Nomor Tujuan: 0831**</strong>
-                <strong class="info-note">⚠️ Catatan: Pastikan bersih dari paket akrab</strong>
-            </div>
-            <a href="https://wa.me/6289667881288?text=XDA31%20Rp58-60k%20/%20MINI%20Payment%20kemana%20ini%20nomor%20yg%20mau%20diisi%200831..." class="btn-wa" target="_blank">
-                Beli via WhatsApp
+            <a href="https://wa.me/6289667881288?text=produk%20%3A%0AXDA31%20Rp58-60k%20%2F%20MINI%0AArea%201%3A%2031GB%0AArea%202%3A%2033GB%0AArea%203%3A%2038GB%0AArea%204%3A%2048GB%2B%0A%0APembayaran%20%3A%20dana%2Cgopay%20089667881288%0A%0Acatatan%20%3A%20pastikan%20bersih%20dari%20paket%20akrab%0Acekkuota%3A%20https%3A%2F%2Fbendith.my.id%2F%0Anomor%20tujuan%20%3A%200831**" class="btn-wa" target="_blank">
+                <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.423-.101.827z"></path></svg>
+                Pesan via WhatsApp
             </a>
         </div>
 
         <div class="product-card">
             <div class="product-header">
                 <span class="product-name">BIG Jam 8±</span>
-                <span class="product-price">Rp63.000</span>
+                <span class="product-price">Rp62.000</span>
                 <span class="product-name">XDA38(big) Jam 9±</span>
-                <span class="product-price">Rp64.000</span>
+                <span class="product-price">Rp65.000</span>
             </div>
             <ul class="product-details">
                 <li><span>Area 1</span> <span>38 GB</span></li>
                 <li><span>Area 2</span> <span>40 GB</span></li>
                 <li><span>Area 3</span> <span>45 GB</span></li>
-                <li><span>Area 4</span> <span>55 GB±</span></li>
+                <li><span>Area 4</span> <span>55 GB+</span></li>
             </ul>
-            <div class="product-info">
-                <strong class="info-payment">💳 Pembayaran: DANA, GOPAY 089667881288</strong>
-                <strong>📞 Nomor Tujuan: 0831**</strong>
-                <strong class="info-note">⚠️ Catatan: Pastikan bersih dari paket akrab</strong>
-            </div>
-            <a href="https://wa.me/6289667881288?text=XDA38%20Rp63-64k%20/%20BIG%20Payment%20kemana%20ini%20nomor%20yg%20mau%20diisi%200831..." class="btn-wa" target="_blank">
-                Beli via WhatsApp
+            <a href="https://wa.me/6289667881288?text=produk%20%3A%0AXDA38%20Rp62-65k%20%2F%20BIG%0AArea%201%3A%2038GB%0AArea%202%3A%2040GB%0AArea%203%3A%2045GB%0AArea%204%3A%2055GB%2B%0A%0APembayaran%20%3A%20dana%2Cgopay%20089667881288%0A%0Acatatan%20%3A%20pastikan%20bersih%20dari%20paket%20akrab%0Acekkuota%3A%20https%3A%2F%2Fbendith.my.id%2F%0Anomor%20tujuan%20%3A%200831**" class="btn-wa" target="_blank">
+                <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.423-.101.827z"></path></svg>
+                Pesan via WhatsApp
             </a>
         </div>
 
@@ -297,63 +369,51 @@
                 <span class="product-name">JUMBO'V2 jam 8±</span>
                 <span class="product-price">Rp72.000</span>
                 <span class="product-name">XDA50 jam 9±</span>
-                <span class="product-price">Rp74.000</span>
+                <span class="product-price">Rp75.000</span>
             </div>
             <ul class="product-details">
                 <li><span>Area 1</span> <span>50 GB</span></li>
                 <li><span>Area 2</span> <span>52 GB</span></li>
                 <li><span>Area 3</span> <span>57 GB</span></li>
-                <li><span>Area 4</span> <span>67 GB±</span></li>
+                <li><span>Area 4</span> <span>67 GB+</span></li>
             </ul>
-            <div class="product-info">
-                <strong class="info-payment">💳 Pembayaran: DANA, GOPAY 089667881288</strong>
-                <strong>📞 Nomor Tujuan: 0831**</strong>
-                <strong class="info-note">⚠️ Catatan: Pastikan bersih dari paket akrab</strong>
-            </div>
-            <a href="https://wa.me/6289667881288?text=XDA50%20Rp72-74k%20/%20JUMBO'V2%20Payment%20kemana%20ini%20nomor%20yg%20mau%20diisi%200831..." class="btn-wa" target="_blank">
-                Beli via WhatsApp
+            <a href="https://wa.me/6289667881288?text=produk%20%3A%0AXDA50%20Rp72-75k%20%2F%20JUMBO'V2%0AArea%201%3A%2050GB%0AArea%202%3A%2052GB%0AArea%203%3A%2057GB%0AArea%204%3A%2067GB%2B%0A%0APembayaran%20%3A%20dana%2Cgopay%20089667881288%0A%0Acatatan%20%3A%20pastikan%20bersih%20dari%20paket%20akrab%0Acekkuota%3A%20https%3A%2F%2Fbendith.my.id%2F%0Anomor%20tujuan%20%3A%200831**" class="btn-wa" target="_blank">
+                <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.423-.101.827z"></path></svg>
+                Pesan via WhatsApp
             </a>
         </div>
 
         <div class="product-card">
             <div class="product-header">
-                <span class="product-name">XDA63    (jam 9)</span>
+                <span class="product-name">XDA63 (jam 9)</span>
                 <span class="product-price">Rp85.000</span>
             </div>
             <ul class="product-details">
                 <li><span>Area 1</span> <span>63 GB</span></li>
                 <li><span>Area 2</span> <span>65 GB</span></li>
                 <li><span>Area 3</span> <span>70 GB</span></li>
-                <li><span>Area 4</span> <span>80 GB±</span></li>
+                <li><span>Area 4</span> <span>80 GB+</span></li>
             </ul>
-            <div class="product-info">
-                <strong class="info-payment">💳 Pembayaran: DANA, GOPAY 089667881288</strong>
-                <strong>📞 Nomor Tujuan: 0831**</strong>
-                <strong class="info-note">⚠️ Catatan: Pastikan bersih dari paket akrab</strong>
-            </div>
-            <a href="https://wa.me/6289667881288?text=XDA63%20Rp85k%20Payment%20kemana%20ini%20nomor%20yg%20mau%20diisi%200831..." class="btn-wa" target="_blank">
-                Beli via WhatsApp
+            <a href="https://wa.me/6289667881288?text=produk%20%3A%0AXDA63%20Rp85k%0AArea%201%3A%2063GB%0AArea%202%3A%2065GB%0AArea%203%3A%2070GB%0AArea%204%3A%2080GB%2B%0A%0APembayaran%20%3A%20dana%2Cgopay%20089667881288%0A%0Acatatan%20%3A%20pastikan%20bersih%20dari%20paket%20akrab%0Acekkuota%3A%20https%3A%2F%2Fbendith.my.id%2F%0Anomor%20tujuan%20%3A%200831**" class="btn-wa" target="_blank">
+                <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.423-.101.827z"></path></svg>
+                Pesan via WhatsApp
             </a>
         </div>
 
         <div class="product-card">
             <div class="product-header">
-                <span class="product-name">XDA76     (jam 9)</span>
+                <span class="product-name">XDA76 (jam 9)</span>
                 <span class="product-price">Rp92.000</span>
             </div>
             <ul class="product-details">
                 <li><span>Area 1</span> <span>76 GB</span></li>
                 <li><span>Area 2</span> <span>78 GB</span></li>
                 <li><span>Area 3</span> <span>83 GB</span></li>
-                <li><span>Area 4</span> <span>93 GB±</span></li>
+                <li><span>Area 4</span> <span>93 GB+</span></li>
             </ul>
-            <div class="product-info">
-                <strong class="info-payment">💳 Pembayaran: DANA, GOPAY 089667881288</strong>
-                <strong>📞 Nomor Tujuan: 0831**</strong>
-                <strong class="info-note">⚠️ Catatan: Pastikan bersih dari paket akrab</strong>
-            </div>
-            <a href="https://wa.me/6289667881288?text=XDA76%20Rp92k%20Payment%20kemana%20ini%20nomor%20yg%20mau%20diisi%200831..." class="btn-wa" target="_blank">
-                Beli via WhatsApp
+            <a href="https://wa.me/6289667881288?text=produk%20%3A%0AXDA76%20Rp92k%0AArea%201%3A%2076GB%0AArea%202%3A%2078GB%0AArea%203%3A%2083GB%0AArea%204%3A%2093GB%2B%0A%0APembayaran%20%3A%20dana%2Cgopay%20089667881288%0A%0Acatatan%20%3A%20pastikan%20bersih%20dari%20paket%20akrab%0Acekkuota%3A%20https%3A%2F%2Fbendith.my.id%2F%0Anomor%20tujuan%20%3A%200831**" class="btn-wa" target="_blank">
+                <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.423-.101.827z"></path></svg>
+                Pesan via WhatsApp
             </a>
         </div>
 
@@ -368,15 +428,11 @@
                 <li><span>Area 1</span> <span>88 GB</span></li>
                 <li><span>Area 2</span> <span>90 GB</span></li>
                 <li><span>Area 3</span> <span>95 GB</span></li>
-                <li><span>Area 4</span> <span>105 GB±</span></li>
+                <li><span>Area 4</span> <span>105 GB+</span></li>
             </ul>
-            <div class="product-info">
-                <strong class="info-payment">💳 Pembayaran: DANA, GOPAY 089667881288</strong>
-                <strong>📞 Nomor Tujuan: 0831**</strong>
-                <strong class="info-note">⚠️ Catatan: Pastikan bersih dari paket akrab</strong>
-            </div>
-            <a href="https://wa.me/6289667881288?text=XDA88%20Rp97-102k%20/%20MEGABIG%20Payment%20kemana%20ini%20nomor%20yg%20mau%20diisi%200831..." class="btn-wa" target="_blank">
-                Beli via WhatsApp
+            <a href="https://wa.me/6289667881288?text=produk%20%3A%0AXDA88%20Rp97-102k%20%2F%20MEGABIG%0AArea%201%3A%2088GB%0AArea%202%3A%2090GB%0AArea%203%3A%2095GB%0AArea%204%3A%20105GB%2B%0A%0APembayaran%20%3A%20dana%2Cgopay%20089667881288%0A%0Acatatan%20%3A%20pastikan%20bersih%20dari%20paket%20akrab%0Acekkuota%3A%20https%3A%2F%2Fbendith.my.id%2F%0Anomor%20tujuan%20%3A%200831**" class="btn-wa" target="_blank">
+                <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.423-.101.827z"></path></svg>
+                Pesan via WhatsApp
             </a>
         </div>
 
@@ -392,10 +448,19 @@
             </ul>
         </div>
 
+        <a href="https://wa.me/6289667881288?text=Halo%20Admin%2C%20saya%20mau%20bertanya%20tentang%20paket%20AKRAB..." class="floating-wa" target="_blank" title="Butuh Bantuan?">
+            <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.423-.101.827z"></path></svg>
+        </a>
+
         <div class="footer">
-            &copy; 999+ ©gfrstore
+            <span>GFROFFICIALSTORE✅</span><br>
+            proses dor via nomor by GFROFFICIALSTORE<br>
+            <div style="margin-top: 8px;">
+                📞 WA: 089667881288 | 💬 Telegram: @FarGifar
+            </div>
+            &copy; 9999+ ©gfrstore
         </div>
     </div>
 
 </body>
-            </html>
+    </html>
